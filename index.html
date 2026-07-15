@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>IoT Experiments</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            overflow-x: hidden;
+
+            background: linear-gradient(
+                -45deg,
+                #e0f2fe,
+                #f2f7fb,
+                #dbeafe,
+                #ecfeff
+            );
+
+            background-size: 400% 400%;
+            animation: backgroundAnimation 12s ease infinite;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            animation: fadeDown 1s ease;
+        }
+
+        h1 {
+            color: #075985;
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #475569;
+            font-size: 17px;
+            margin: 0;
+        }
+
+        .card {
+            position: relative;
+            max-width: 650px;
+            margin: 20px auto;
+            padding: 28px;
+            overflow: hidden;
+
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(2, 132, 199, 0.15);
+            border-radius: 16px;
+
+            box-shadow: 0 8px 25px rgba(7, 89, 133, 0.12);
+
+            animation: fadeUp 1s ease;
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                #0284c7,
+                #06b6d4
+            );
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(7, 89, 133, 0.2);
+        }
+
+        .experiment-number {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 12px;
+
+            color: #0369a1;
+            background: #e0f2fe;
+
+            font-size: 14px;
+            font-weight: bold;
+
+            border-radius: 20px;
+        }
+
+        .card h2 {
+            color: #0f172a;
+            font-size: 26px;
+            margin: 5px 0 10px;
+        }
+
+        .card p {
+            color: #475569;
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .open-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            padding: 12px 20px;
+
+            color: white;
+            background: linear-gradient(
+                135deg,
+                #0284c7,
+                #0369a1
+            );
+
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+
+            border-radius: 8px;
+
+            box-shadow: 0 5px 14px rgba(2, 132, 199, 0.25);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease,
+                background 0.3s ease;
+        }
+
+        .open-button:hover {
+            transform: translateY(-3px) scale(1.03);
+
+            background: linear-gradient(
+                135deg,
+                #0369a1,
+                #075985
+            );
+
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);
+        }
+
+        .arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .open-button:hover .arrow {
+            transform: translateX(5px);
+        }
+
+        .circle {
+            position: fixed;
+            z-index: -1;
+
+            width: 180px;
+            height: 180px;
+
+            background: rgba(14, 165, 233, 0.12);
+            border-radius: 50%;
+
+            animation: floatingCircle 6s ease-in-out infinite;
+        }
+
+        .circle-one {
+            top: 8%;
+            left: 5%;
+        }
+
+        .circle-two {
+            right: 5%;
+            bottom: 8%;
+
+            width: 240px;
+            height: 240px;
+
+            animation-delay: 2s;
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatingCircle {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-25px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 30px 15px;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+
+            .subtitle {
+                font-size: 15px;
+            }
+
+            .card {
+                padding: 23px;
+            }
+
+            .card h2 {
+                font-size: 22px;
+            }
+
+            .open-button {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="circle circle-one"></div>
+    <div class="circle circle-two"></div>
+
+    <main class="container">
+
+        <header class="header">
+            <h1>IoT User Manual Experiments</h1>
+
+            <p class="subtitle">
+                Explore practical IoT and Arduino experiments.
+            </p>
+        </header>
+
+        <section class="card">
+
+            <span class="experiment-number">
+                Experiment 01
+            </span>
+
+            <h2>LED Blinking Using Arduino</h2>
+
+            <p>
+                Learn how to connect an LED with Arduino and write a
+                simple program to turn the LED ON and OFF continuously.
+            </p>
+
+            <a
+                href="website/"
+                class="open-button"
+                aria-label="Open LED Blinking using Arduino experiment"
+            >
+                Open Experiment
+
+                <span class="arrow">
+                    &rarr;
+                </span>
+            </a>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
