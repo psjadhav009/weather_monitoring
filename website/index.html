@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Weather Monitoring System Project</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #1e293b;
+            background: #f1f5f9;
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 55px 20px;
+            text-align: center;
+            color: white;
+            background: linear-gradient(135deg, #0284c7, #075985);
+        }
+
+        header h1 {
+            margin: 0 0 12px;
+            font-size: 40px;
+        }
+
+        header p {
+            max-width: 700px;
+            margin: auto;
+            color: #e0f2fe;
+            font-size: 17px;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+
+            padding: 15px;
+            background: white;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #075985;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #0284c7;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 40px 0;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 28px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 5px 18px rgba(15, 23, 42, 0.08);
+            animation: fadeUp 0.8s ease;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            color: #075985;
+            border-bottom: 2px solid #e0f2fe;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: #0369a1;
+            margin-top: 25px;
+        }
+
+        .project-info {
+            padding: 18px;
+            background: #f0f9ff;
+            border-left: 5px solid #0284c7;
+            border-radius: 8px;
+        }
+
+        .project-info p {
+            margin: 7px 0;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .requirement-card {
+            padding: 18px;
+            text-align: center;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .requirement-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .requirement-card span {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 34px;
+        }
+
+        .requirement-card strong {
+            color: #075985;
+        }
+
+        ul,
+        ol {
+            padding-left: 24px;
+        }
+
+        li {
+            margin-bottom: 9px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 550px;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 13px;
+            text-align: left;
+            border: 1px solid #cbd5e1;
+        }
+
+        th {
+            color: white;
+            background: #075985;
+        }
+
+        tr:nth-child(even) {
+            background: #f0f9ff;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+
+            padding: 12px 16px;
+            color: white;
+            background: #1e293b;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .copy-button {
+            padding: 8px 14px;
+            color: white;
+            background: #0284c7;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .copy-button:hover {
+            background: #0369a1;
+        }
+
+        pre {
+            margin: 0;
+            padding: 22px;
+            overflow-x: auto;
+
+            color: #e2e8f0;
+            background: #0f172a;
+            border-radius: 0 0 10px 10px;
+
+            font-family: Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .note {
+            margin-top: 20px;
+            padding: 15px;
+            color: #854d0e;
+            background: #fef9c3;
+            border: 1px solid #fde047;
+            border-radius: 8px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 11px 20px;
+            color: white;
+            background: #0284c7;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .back-button:hover {
+            background: #075985;
+        }
+
+        footer {
+            padding: 22px;
+            text-align: center;
+            color: #cbd5e1;
+            background: #0f172a;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .requirements-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            header h1 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .requirements-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>IoT Weather Monitoring System</h1>
+
+        <p>
+            Project requirements, required libraries, circuit connections
+            and ESP32 Arduino code.
+        </p>
+    </header>
+
+    <nav>
+        <a href="#details">Project Details</a>
+        <a href="#requirements">Requirements</a>
+        <a href="#libraries">Libraries</a>
+        <a href="#connections">Connections</a>
+        <a href="Animal"Download>Code</a>
+    </nav>
+
+    <main class="container">
+
+        <!-- Project Details -->
+
+        <section class="section" id="details">
+
+            <h2>Project Details</h2>
+
+            <div class="project-info">
+
+                <p>
+                    <strong>Project Name:</strong>
+                    IoT Weather Monitoring System
+                </p>
+
+                <p>
+                    <strong>Controller:</strong>
+                    ESP32 Development Board
+                </p>
+
+                <p>
+                    <strong>Sensors:</strong>
+                    DHT11 and BMP280
+                </p>
+
+                <p>
+                    <strong>Programming Software:</strong>
+                    Arduino IDE
+                </p>
+
+                <p>
+                    <strong>Purpose:</strong>
+                    To measure temperature, humidity and atmospheric pressure.
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- Requirements -->
+
+        <section class="section" id="requirements">
+
+            <h2>Project Requirements</h2>
+
+            <div class="requirements-grid">
+
+                <div class="requirement-card">
+                    <span>🧠</span>
+                    <strong>ESP32 Board</strong>
+                    <p>Main controller of the project.</p>
+                </div>
+
+                <div class="requirement-card">
+                    <span>🌡️</span>
+                    <strong>DHT11 Sensor</strong>
+                    <p>Measures temperature and humidity.</p>
+                </div>
+
+                <div class="requirement-card">
+                    <span>🌬️</span>
+                    <strong>BMP280 Sensor</strong>
+                    <p>Measures atmospheric pressure.</p>
+                </div>
+
+                <div class="requirement-card">
+                    <span>🧩</span>
+                    <strong>Breadboard</strong>
+                    <p>Used for circuit connections.</p>
+                </div>
+
+                <div class="requirement-card">
+                    <span>➿</span>
+                    <strong>Jumper Wires</strong>
+                    <p>Connect sensors with ESP32.</p>
+                </div>
+
+                <div class="requirement-card">
+                    <span>🔌</span>
+                    <strong>USB Cable</strong>
+                    <p>Connects ESP32 to the computer.</p>
+                </div>
+
+                <div class="requirement-card">
+                    <span>💻</span>
+                    <strong>Computer</strong>
+                    <p>Used for Arduino programming.</p>
+                </div>
+
+                <div class="requirement-card">
+                    <span>🖥️</span>
+                    <strong>Arduino IDE</strong>
+                    <p>Used to write and upload code.</p>
+                </div>
+
+                <div class="requirement-card">
+                    <span>📡</span>
+                    <strong>Wi-Fi</strong>
+                    <p>Required for IoT connectivity.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Libraries -->
+
+        <section class="section" id="libraries">
+
+            <h2>Libraries Required</h2>
+
+            <p>
+                Open Arduino IDE and go to:
+            </p>
+
+            <div class="project-info">
+                <strong>
+                    Sketch → Include Library → Manage Libraries
+                </strong>
+            </div>
+
+            <h3>Install These Libraries</h3>
+
+            <ol>
+                <li>DHT Sensor Library by Adafruit</li>
+                <li>Adafruit Unified Sensor</li>
+                <li>Adafruit BMP280 Library</li>
+                <li>Adafruit BusIO</li>
+            </ol>
+
+            <div class="note">
+                Install all the required libraries before compiling the
+                Arduino program.
+            </div>
+
+        </section>
+
+        <!-- Connections -->
+
+        <section class="section" id="connections">
+
+            <h2>Circuit Connections</h2>
+
+            <h3>DHT11 to ESP32</h3>
+
+            <div class="table-wrapper">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DHT11 Pin</th>
+                            <th>ESP32 Pin</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>VCC</td>
+                            <td>3.3V</td>
+                            <td>Power supply</td>
+                        </tr>
+
+                        <tr>
+                            <td>GND</td>
+                            <td>GND</td>
+                            <td>Ground</td>
+                        </tr>
+
+                        <tr>
+                            <td>DATA</td>
+                            <td>GPIO 4</td>
+                            <td>Sensor data</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <h3>BMP280 to ESP32</h3>
+
+            <div class="table-wrapper">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>BMP280 Pin</th>
+                            <th>ESP32 Pin</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>VCC</td>
+                            <td>3.3V</td>
+                            <td>Power supply</td>
+                        </tr>
+
+                        <tr>
+                            <td>GND</td>
+                            <td>GND</td>
+                            <td>Ground</td>
+                        </tr>
+
+                        <tr>
+                            <td>SDA</td>
+                            <td>GPIO 21</td>
+                            <td>I2C data</td>
+                        </tr>
+
+                        <tr>
+                            <td>SCL</td>
+                            <td>GPIO 22</td>
+                            <td>I2C clock</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="note">
+                Check the pin labels printed on your sensor module before
+                making the circuit connections.
+            </div>
+
+        </section>
+
+        <!-- Arduino Code -->
+
+        <section class="section" id="code">
+
+            <h2>ESP32 Arduino Code</h2>
+
+            <div class="code-header">
+                <span>weather_monitoring.ino</span>
+
+                <button
+                    class="copy-button"
+                    onclick="copyCode()"
+                >
+                    Copy Code
+                </button>
+            </div>
+
+            <pre><code id="arduinoCode">#include &lt;Wire.h&gt;
+#include &lt;DHT.h&gt;
+#include &lt;Adafruit_BMP280.h&gt;
+
+#define DHTPIN 4
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+Adafruit_BMP280 bmp;
+
+void setup() {
+  Serial.begin(115200);
+
+  dht.begin();
+
+  if (!bmp.begin(0x76)) {
+    Serial.println("BMP280 sensor not found!");
+
+    while (1) {
+      delay(10);
+    }
+  }
+
+  Serial.println("Weather Monitoring System Started");
+}
+
+void loop() {
+  float temperature = dht.readTemperature();
+  float humidity = dht.readHumidity();
+  float pressure = bmp.readPressure() / 100.0F;
+
+  if (isnan(temperature) || isnan(humidity)) {
+    Serial.println("Failed to read DHT11 sensor!");
+
+    delay(2000);
+    return;
+  }
+
+  Serial.println("-----------------------------");
+
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.println(" °C");
+
+  Serial.print("Humidity: ");
+  Serial.print(humidity);
+  Serial.println(" %");
+
+  Serial.print("Atmospheric Pressure: ");
+  Serial.print(pressure);
+  Serial.println(" hPa");
+
+  Serial.println("-----------------------------");
+
+  delay(5000);
+}</code></pre>
+
+            <div class="note">
+                Open the Serial Monitor and set the baud rate to
+                <strong>115200</strong> to view the sensor readings.
+            </div>
+
+        </section>
+
+        <a href="../index.html" class="back-button">
+            ← Back to Home
+        </a>
+
+    </main>
+
+    <footer>
+        IoT Weather Monitoring System Project
+    </footer>
+
+    <script>
+        function copyCode() {
+            const code =
+                document.getElementById("arduinoCode").innerText;
+
+            navigator.clipboard
+                .writeText(code)
+                .then(function () {
+                    const button =
+                        document.querySelector(".copy-button");
+
+                    button.textContent = "Copied!";
+
+                    setTimeout(function () {
+                        button.textContent = "Copy Code";
+                    }, 2000);
+                })
+                .catch(function () {
+                    alert("Code could not be copied.");
+                });
+        }
+    </script>
+
+</body>
+
+</html>
