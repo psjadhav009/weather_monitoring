@@ -47,6 +47,62 @@
             font-size: 17px;
         }
 
+        .logo-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-section img {
+            width: 150px;
+            height: auto;
+            display: block;
+            padding: 8px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .circuit-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.circuit-image-card {
+    padding: 15px;
+    text-align: center;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.circuit-image-card:hover {
+    transform: translateY(-5px);
+}
+
+.circuit-image-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: contain;
+    background: white;
+    border-radius: 8px;
+}
+
+.circuit-image-card h4 {
+    margin: 12px 0 5px;
+    color: #075985;
+}
+
+.circuit-image-card p {
+    margin: 0;
+    color: #475569;
+    font-size: 14px;
+}
+
         nav {
             position: sticky;
             top: 0;
@@ -269,6 +325,16 @@
             }
         }
 
+        @media (max-width: 700px) {
+    .circuit-images {
+        grid-template-columns: 1fr;
+    }
+
+    .circuit-image-card img {
+        height: auto;
+    }
+}
+
         @media (max-width: 520px) {
             .requirements-grid {
                 grid-template-columns: 1fr;
@@ -288,6 +354,11 @@
 <body>
 
     <header>
+
+        <div class="logo">
+            <img src="Simusoft logo.jpeg" alt="Simusoft TEchnology">
+        </div>
+        
         <h1>IoT Weather Monitoring System</h1>
 
         <p>
@@ -531,6 +602,68 @@
             </div>
 
         </section>
+
+        <h3>Circuit Diagram Images</h3>
+
+<div class="circuit-images">
+
+    <div class="circuit-image-card">
+        <img
+            src="dht11-esp32-circuit.png"
+            alt="DHT11 Sensor connected to ESP32 circuit diagram"
+        >
+
+        <h4>DHT11 with ESP32</h4>
+
+        <p>
+            DHT11 sensor connection for measuring temperature
+            and humidity.
+        </p>
+    </div>
+
+    <div class="circuit-image-card">
+        <img
+            src="bmp280-esp32-circuit.png"
+            alt="BMP280 Sensor connected to ESP32 circuit diagram"
+        >
+
+        <h4>BMP280 with ESP32</h4>
+
+        <p>
+            BMP280 sensor connection for measuring atmospheric
+            pressure.
+        </p>
+    </div>
+
+    <div class="circuit-image-card">
+        <img
+            src="weather-monitoring-complete-circuit.png"
+            alt="Complete IoT Weather Monitoring System circuit"
+        >
+
+        <h4>Complete Circuit</h4>
+
+        <p>
+            Complete connection of DHT11 and BMP280 sensors
+            with the ESP32 board.
+        </p>
+    </div>
+
+    <div class="circuit-image-card">
+        <img
+            src="circuit.jpeg"
+            alt="Real Weather Monitoring System project setup"
+        >
+
+        <h4>Real Project Setup</h4>
+
+        <p>
+            Example of the complete weather monitoring system
+            assembled using a breadboard.
+        </p>
+    </div>
+
+</div>
 
         <!-- Arduino Code -->
 
