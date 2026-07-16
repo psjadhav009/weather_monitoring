@@ -47,22 +47,23 @@
             font-size: 17px;
         }
 
-        .logo-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+        .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
-        .logo-section img {
-            width: 150px;
-            height: auto;
-            display: block;
-            padding: 8px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
+.logo img {
+    width: 150px;
+    height: auto;
+    display: block;
+    padding: 8px;
+    object-fit: contain;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
 
         .circuit-images {
     display: grid;
@@ -187,12 +188,6 @@
             transform: translateY(-5px);
         }
 
-        .requirement-card span {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 34px;
-        }
-
         .requirement-card strong {
             color: #075985;
         }
@@ -296,6 +291,79 @@
             background: #075985;
         }
 
+        /* Component image container */
+.requirement-card span {
+    width: 100%;
+    height: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 14px;
+    padding: 10px;
+    overflow: hidden;
+    background: white;
+    border-radius: 10px;
+}
+
+/* Component images */
+.requirement-card span img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+/* Image zoom effect */
+.requirement-card:hover span img {
+    transform: scale(1.08);
+}
+
+/* Component card design */
+.requirement-card {
+    padding: 16px;
+    text-align: center;
+    overflow: hidden;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.requirement-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 22px rgba(2, 132, 199, 0.18);
+}
+
+.requirement-card strong {
+    display: block;
+    margin-top: 5px;
+    color: #075985;
+    font-size: 18px;
+}
+
+.requirement-card p {
+    margin: 7px 0 0;
+    color: #475569;
+    font-size: 14px;
+}
+
+/* Tablet view */
+@media (max-width: 800px) {
+    .requirement-card span {
+        height: 155px;
+    }
+}
+
+/* Mobile view */
+@media (max-width: 520px) {
+    .requirement-card span {
+        height: 190px;
+    }
+}
+
         footer {
             padding: 22px;
             text-align: center;
@@ -303,6 +371,210 @@
             background: #0f172a;
         }
 
+        /* =========================================
+   ANIMATED CIRCUIT DIAGRAM
+========================================= */
+
+.animation-description {
+    margin-bottom: 18px;
+    color: #475569;
+}
+
+.wire-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 22px;
+
+    margin-bottom: 22px;
+    padding: 14px;
+
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+}
+
+.wire-legend div {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 14px;
+    font-weight: bold;
+    color: #334155;
+}
+
+.legend-line {
+    display: inline-block;
+    width: 38px;
+    height: 6px;
+    border-radius: 10px;
+}
+
+.red-legend {
+    background: #ef4444;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+}
+
+.black-legend {
+    background: #111827;
+    border: 1px solid #64748b;
+}
+
+.yellow-legend {
+    background: #facc15;
+    box-shadow: 0 0 8px rgba(250, 204, 21, 0.8);
+}
+
+.animated-circuit {
+    position: relative;
+    width: 100%;
+    max-width: 921px;
+    margin: auto;
+
+    overflow: hidden;
+    background: #eeeeee;
+    border: 2px solid #cbd5e1;
+    border-radius: 14px;
+
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.15);
+}
+
+.circuit-background {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/*
+The SVG is placed directly over the circuit image.
+Its viewBox matches the original image size: 921 × 650.
+*/
+.wire-animation {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+}
+
+/* Common animated wire styling */
+.wire-flow {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    /*
+    Small moving segments create the appearance
+    of electricity or data travelling through a wire.
+    */
+    stroke-dasharray: 2 8;
+    animation: wireMovement 1.5s linear infinite;
+}
+
+/* Red power flow */
+.power-flow {
+    stroke: #ff2020;
+    stroke-width: 4;
+    filter: url("#redGlow");
+    animation-duration: 1.2s;
+}
+
+/* Black ground return */
+.ground-flow {
+    stroke: #111827;
+    stroke-width: 4;
+    filter: url("#groundGlow");
+
+    /*
+    Reverse direction represents return to ground.
+    */
+    animation-name: groundMovement;
+    animation-duration: 1.8s;
+}
+
+/* Yellow sensor data */
+.data-flow {
+    stroke: #ffd000;
+    stroke-width: 4;
+    filter: url("#yellowGlow");
+    animation-duration: 0.9s;
+}
+
+/* Power and data move towards the controller/sensors */
+@keyframes wireMovement {
+    from {
+        stroke-dashoffset: 0;
+    }
+
+    to {
+        stroke-dashoffset: -100;
+    }
+}
+
+/* Ground animation moves in the opposite direction */
+@keyframes groundMovement {
+    from {
+        stroke-dashoffset: 0;
+    }
+
+    to {
+        stroke-dashoffset: 100;
+    }
+}
+
+.animation-controls {
+    margin-top: 18px;
+    text-align: center;
+}
+
+.animation-button {
+    padding: 11px 22px;
+
+    color: white;
+    background: #0284c7;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+.animation-button:hover {
+    background: #075985;
+    transform: translateY(-2px);
+}
+
+/* Applied by JavaScript when the animation is paused */
+.animated-circuit.animation-paused .wire-flow {
+    animation-play-state: paused;
+}
+
+.circuit-note {
+    margin-top: 20px;
+    padding: 15px;
+
+    color: #0c4a6e;
+    background: #e0f2fe;
+
+    border-left: 5px solid #0284c7;
+    border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wire-flow {
+        animation-duration: 4s;
+    }
+}
+        
         @keyframes fadeUp {
             from {
                 opacity: 0;
@@ -597,23 +869,220 @@
 
         </section>
 
-        <h3>Circuit Diagram Images</h3>
+        <section class="section" id="circuit-animation">
 
-<div class="circuit-images">
-    <div class="circuit-image-card">
+    <h2>Animated Circuit Current Flow</h2>
+
+    <p class="animation-description">
+        The moving particles show the flow through each wire.
+    </p>
+
+    <div class="wire-legend">
+        <div>
+            <span class="legend-line red-legend"></span>
+            Power / Current Flow
+        </div>
+
+        <div>
+            <span class="legend-line black-legend"></span>
+            Ground Connection
+        </div>
+
+        <div>
+            <span class="legend-line yellow-legend"></span>
+            Sensor Data Flow
+        </div>
+    </div>
+
+    <div class="animated-circuit">
+
+        <!-- Circuit background image -->
         <img
             src="circuit3.jpeg"
-            alt="Complete IoT Weather Monitoring System circuit"
+            alt="Arduino Uno circuit with DHT11, MQ-9, MQ-135 and MQ-2 sensors"
+            class="circuit-background"
         >
 
-        <h4>Complete Circuit</h4>
+        <!-- Animated wires -->
+        <svg
+            class="wire-animation"
+            viewBox="0 0 921 650"
+            preserveAspectRatio="xMidYMid meet"
+            aria-hidden="true"
+        >
+            <defs>
+                <!-- Glow effects -->
 
-        <p>
-            Complete connection of DHT11 and BMP280 sensors
-            with the ESP32 board.
-        </p>
+                <filter id="redGlow">
+                    <feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur>
+                    <feMerge>
+                        <feMergeNode in="blur"></feMergeNode>
+                        <feMergeNode in="SourceGraphic"></feMergeNode>
+                    </feMerge>
+                </filter>
+
+                <filter id="yellowGlow">
+                    <feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur>
+                    <feMerge>
+                        <feMergeNode in="blur"></feMergeNode>
+                        <feMergeNode in="SourceGraphic"></feMergeNode>
+                    </feMerge>
+                </filter>
+
+                <filter id="groundGlow">
+                    <feGaussianBlur stdDeviation="2" result="blur"></feGaussianBlur>
+                    <feMerge>
+                        <feMergeNode in="blur"></feMergeNode>
+                        <feMergeNode in="SourceGraphic"></feMergeNode>
+                    </feMerge>
+                </filter>
+            </defs>
+
+            <!-- ================================= -->
+            <!-- RED POWER / CURRENT FLOW WIRES -->
+            <!-- ================================= -->
+
+            <!-- Arduino to DHT11 power -->
+            <path
+                class="wire-flow power-flow"
+                pathLength="100"
+                d="M460 437
+                   L460 119
+                   L241 119"
+            ></path>
+
+            <!-- Arduino to MQ-9 power -->
+            <path
+                class="wire-flow power-flow"
+                pathLength="100"
+                d="M460 437
+                   L460 106
+                   L674 106"
+            ></path>
+
+            <!-- Arduino to MQ-135 power -->
+            <path
+                class="wire-flow power-flow"
+                pathLength="100"
+                d="M460 437
+                   L460 548
+                   L267 548"
+            ></path>
+
+            <!-- Arduino to MQ-2 power -->
+            <path
+                class="wire-flow power-flow"
+                pathLength="100"
+                d="M460 437
+                   L460 511
+                   L671 511"
+            ></path>
+
+            <!-- ================================= -->
+            <!-- BLACK GROUND WIRES -->
+            <!-- ================================= -->
+
+            <!-- DHT11 ground return -->
+            <path
+                class="wire-flow ground-flow"
+                pathLength="100"
+                d="M241 106
+                   L589 106
+                   L589 437
+                   L473 437"
+            ></path>
+
+            <!-- MQ-9 ground return -->
+            <path
+                class="wire-flow ground-flow"
+                pathLength="100"
+                d="M674 119
+                   L605 119
+                   L605 437
+                   L473 437"
+            ></path>
+
+            <!-- MQ-135 ground return -->
+            <path
+                class="wire-flow ground-flow"
+                pathLength="100"
+                d="M267 531
+                   L475 531
+                   L475 437"
+            ></path>
+
+            <!-- MQ-2 ground return -->
+            <path
+                class="wire-flow ground-flow"
+                pathLength="100"
+                d="M671 497
+                   L489 497
+                   L489 437"
+            ></path>
+
+            <!-- ================================= -->
+            <!-- YELLOW SENSOR DATA WIRES -->
+            <!-- ================================= -->
+
+            <!-- DHT11 data to Arduino -->
+            <path
+                class="wire-flow data-flow"
+                pathLength="100"
+                d="M241 125
+                   L518 125
+                   L518 223"
+            ></path>
+
+            <!-- MQ-9 data to Arduino -->
+            <path
+                class="wire-flow data-flow"
+                pathLength="100"
+                d="M674 132
+                   L647 132
+                   L647 439
+                   L540 439"
+            ></path>
+
+            <!-- MQ-135 data to Arduino -->
+            <path
+                class="wire-flow data-flow"
+                pathLength="100"
+                d="M267 518
+                   L505 518
+                   L505 437"
+            ></path>
+
+            <!-- MQ-2 data to Arduino -->
+            <path
+                class="wire-flow data-flow"
+                pathLength="100"
+                d="M671 523
+                   L523 523
+                   L523 437"
+            ></path>
+
+        </svg>
+
     </div>
-</div>
+
+    <div class="animation-controls">
+        <button
+            type="button"
+            class="animation-button"
+            id="toggleAnimationButton"
+            onclick="toggleCircuitAnimation()"
+        >
+            Pause Animation
+        </button>
+    </div>
+
+    <div class="circuit-note">
+        <strong>Wire meaning:</strong>
+        Red carries power, black represents ground and yellow carries
+        sensor information to the Arduino.
+    </div>
+
+</section>
 
         <!-- Arduino Code -->
 
@@ -689,7 +1158,13 @@ void loop() {
   delay(5000);
 }</code></pre>
 
-<a href="Animal"Download class="back-button">Download Code</a>
+<a
+    href="Animal.py"
+    class="back-button"
+    download
+>
+    Download Code
+</a>
 
             <div class="note">
                 Open the Serial Monitor and set the baud rate to
@@ -729,8 +1204,44 @@ void loop() {
                     alert("Code could not be copied.");
                 });
         }
+        
+        function copyCode() {
+            const code =
+                document.getElementById("arduinoCode").innerText;
+    
+            navigator.clipboard
+                .writeText(code)
+                .then(function () {
+                    const button =
+                        document.querySelector(".copy-button");
+    
+                    button.textContent = "Copied!";
+    
+                    setTimeout(function () {
+                        button.textContent = "Copy Code";
+                    }, 2000);
+                })
+                .catch(function () {
+                    alert("Code could not be copied.");
+                });
+        }
+    
+        function toggleCircuitAnimation() {
+            const circuit =
+                document.querySelector(".animated-circuit");
+    
+            const button =
+                document.getElementById("toggleAnimationButton");
+    
+            circuit.classList.toggle("animation-paused");
+    
+            if (circuit.classList.contains("animation-paused")) {
+                button.textContent = "Start Animation";
+            } else {
+                button.textContent = "Pause Animation";
+            }
+        }
     </script>
-
 </body>
 
 </html>
